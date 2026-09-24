@@ -3,13 +3,18 @@
         Homepage
     </x-slot:title>
     <div class="max-w-2xl mx-auto">
+    @forelse ($chirps as $chirp)
         <div class="card bg-base-100 shadow mt-8">
             <div class="card-body">
                 <div>
-                    <h1 class="text-3xl font-bold">Welcome to Chirper!</h1>
-                    <p class="mt-4 text-base-content/80">A brand new application made from Laravel</p>
+                    <div class="font-semibold">{{ $chirp->user ? $chirp->user->name : 'Anon' }}</div>
+                    <div class="mt-1">{{ $chirp['message'] }}</div>
+                    <div class="text-sm text-gray-500 mt-2">{{ $chirp->created_at->diffForHumans() }}</div>
                 </div>
             </div>
         </div>
+        @empty
+        <p class="text-gray-500">No Chirpers yet. Be the first one to Chirp.</p>
+        @endforelse
     </div>
 </x-layout>
