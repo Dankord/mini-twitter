@@ -29,4 +29,26 @@ class ChirpController extends Controller
 
         return redirect('/')->with('success', 'Chirp Created!');
     }
+
+    public function edit(Chirp $chirp)
+    {
+        return view('components.edit', compact('chirp'));
+    }
+
+    public function update(Request $request, Chirp $chirp)
+    {
+        $validated = $request->validate([
+            'message' => 'required|string|max:255',
+            'message.required' => 'Please write something to chirp!',
+            'message.max' => 'Chirp must be 255 characters or less'
+        ]);
+        $chirp->update($validated);
+
+        return redirect('/')->with('success', 'Successfully Updated!');
+    }
+
+    public function destroy(Chirp $chirp) {
+        $chirp->delete();
+        return redirect('/')->with('success', 'Successfully Deleted!');
+    }
 }

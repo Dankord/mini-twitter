@@ -27,14 +27,18 @@
                     <span class="text-sm font-semibold">{{ $chirp->user ? $chirp->user->name : "Anon" }}</span>
                     <span class="text-base-content/80">.</span>
                     <span class="text-sm text-base-content/80">{{ $chirp->created_at->diffForHumans() }}</span>
+                    @if($chirp->updated_at->gt( $chirp->created_at->copy()->addSeconds(5) ))
+                        <span class="text-base-content/80">.</span>
+                        <span class="text-sm text-base-content/80">Edited</span>
+                    @endif
                 </div>
                 <div class="flex gap-1">
                     <a href="/chirps/{{ $chirp->id }}/edit" class="btn btn-ghost btn-xs">Edit</a>
                     <form method="POST" action="/chirps/{{ $chirp->id }}/delete">
                         @csrf
-                        @metho('DELETE')
+                        @method('DELETE')
                         <button type='submit'
-                        onlick=" return confirm('Are you sure you want to delete this chirp message?')"
+                        onclick=" return confirm('Are you sure you want to delete this chirp message?')"
                         class="btn btn-ghost btn-xs text-error">Delete</button>
                     </form>
                 </div>
