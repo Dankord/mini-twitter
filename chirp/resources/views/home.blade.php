@@ -18,6 +18,12 @@
                             maxlength="255"
                             required
                         >{{ old('message') }}</textarea>
+
+                        @error('message')
+                        <div class="label">
+                            <span class="label-text-alt text-error">{{ $message }}</span>
+                        </div>
+                        @enderror
                     </div>
                     <div class="mt-4 flex items-center justify-end">
                         <button type="submit" class="btn btn-primary btn-sm">Chirp!</button>
